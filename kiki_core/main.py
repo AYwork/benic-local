@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from kiki_local.parent.parent_agent import run_kiki_orchestrator
+from kiki_core.parent.parent_agent import run_kiki_orchestrator
 from pydantic import BaseModel
 
 app = FastAPI(
