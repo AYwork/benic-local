@@ -16,7 +16,7 @@ class RequirementBotConnector(BaseTool):
     # 【現在のダミー実装】
     def _run(self, query: str) -> str:
         print(f"[Connector] 要件定義ボットに接続中... 入力: {query}")
-        return f"【要件定義エージェントからの回答】: 「{query}」についての要件定義ドラフトを作成しました。（接続テスト成功）"
+        return f"<RESULT>【要件定義エージェントからの回答】: 「{query}」についての要件定義ドラフトを作成しました。（接続テスト成功）</RESULT>"
 
 
 # --- 脱線検知エージェント (将来の想定) ---
@@ -28,11 +28,10 @@ class DeviationCheckConnector(BaseTool):
     # 【現在のダミー実装】
     def _run(self, query: str) -> str:
         print(f"[Connector] 脱線検知係(LangGraph)に接続中... 入力: {query}")
-        return f"【脱線検知エージェントからの回答】: 「{query}」に基づき、脱線確認についてのまとめを作成しました。（接続テスト成功）"
+        return f"<RESULT>【脱線検知エージェントからの回答】: 「{query}」に基づき、脱線確認についてのまとめを作成しました。（接続テスト成功）</RESULT>"
 
 
-# ---
-# 開発工数・費用見積もりエージェント (将来の想定) ---
+# --- 開発工数・費用見積もりエージェント (将来の想定) ---
 class CostEstimationConnector(BaseTool):
     name: str = "CostEstimationBot"
     description: str = "システム開発の工数見積もりに関しては、このツールを使用してください。引数'query'には、ユーザーの依頼文(文字列)をそのまま渡してください。"
@@ -41,4 +40,4 @@ class CostEstimationConnector(BaseTool):
     # 【現在のダミー実装】
     def _run(self, query: str) -> str:
         print(f"[Connector] 開発見積もりボットに接続中... 入力: {query}")
-        return f"【開発工数見積もりエージェントからの回答】: 「{query}」に基づき、開発工数と費用の概算を作成しました。（接続テスト成功）"
+        return f"<RESULT>【開発工数見積もりエージェントからの回答】: 「{query}」に基づき、開発工数と費用の概算を作成しました。（接続テスト成功）</RESULT>"
