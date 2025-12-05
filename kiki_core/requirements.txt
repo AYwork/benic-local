@@ -4,3 +4,4 @@ crewai
 crewai-tools
 langchain-openai
 python-dotenv
+crewai[azure]

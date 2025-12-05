@@ -1,9 +1,8 @@
 import re
 
 from fastapi import FastAPI
+from parent.parent_agent import run_kiki_orchestrator
 from pydantic import BaseModel
-
-from kiki_core.parent.parent_agent import run_kiki_orchestrator
 
 app = FastAPI(
     title="kiki API",
