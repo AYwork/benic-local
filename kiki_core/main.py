@@ -1,8 +1,13 @@
 import re
+import sys
 
+import pysqlite3
+
+sys.modules["sqlite3"] = pysqlite3
 from fastapi import FastAPI
-from parent.parent_agent import run_kiki_orchestrator
 from pydantic import BaseModel
+
+from parent.parent_agent import run_kiki_orchestrator
 
 app = FastAPI(
     title="kiki API",
