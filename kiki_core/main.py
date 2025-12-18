@@ -1,10 +1,12 @@
 import re
 import sys
+import os
 
 import pysqlite3
-
 sys.modules["sqlite3"] = pysqlite3
-from fastapi import FastAPI
+
+from fastapi import FastAPI, HTTPException, Security, Depends
+from fastapi.security.api_key import APIKeyHeader
 from pydantic import BaseModel
 
 from parent.parent_agent import run_kiki_orchestrator
@@ -16,9 +18,31 @@ app = FastAPI(
     openapi_version="3.0.2"
 )
 
+api_key_header = APIKeyHeader(name="x-api-key", auto_error=False)
+
+EXPECTED_API_KEY = os.getenv("API_KEY")
+
+
+async def get_api_key(api_key_header: str = Security(api_key_header)):
+    """APIキーを検証する関数"""
+    if not EXPECTED_API_KEY:
+        print("CRITICAL WARNING: API_KEY is not set in Environment Variables!")
+
+    if api_key_header == EXPECTED_API_KEY:
+        return api_key_header
+    else:
+        raise HTTPException(
+            status_code=403,
+            detail="Could not validate credentials"
+        )
+
 
 class UserRequest(BaseModel):
     query: str
+
+
+class AgentResponse(BaseModel):
+    response: str
 
 
 @app.get("/")
@@ -26,7 +50,7 @@ def root():
     return {"message": "kiki parent agent is running"}
 
 
-@app.post("/ask")
+@app.post("/ask", response_model=AgentResponse, dependencies=[Depends(get_api_key)])
 def ask_kiki(req: UserRequest):
     """
     Copilot Studio から叩かれるエンドポイント
