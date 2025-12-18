@@ -29,7 +29,7 @@ async def get_api_key(api_key_header: str = Security(api_key_header)):
         print("CRITICAL WARNING: API_KEY is not set in Environment Variables!")
 
     if api_key_header == EXPECTED_API_KEY:
-        return api_key_header
+        return
     else:
         raise HTTPException(
             status_code=403,
