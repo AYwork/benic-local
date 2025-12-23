@@ -1,6 +1,7 @@
 from crewai.tools import BaseTool
 from pydantic import BaseModel, Field
 
+from kiki_core.children.openai_test_agent import run_openai_test
 
 # AIに対して入力の型を指定する
 class QueryInput(BaseModel):
@@ -13,11 +14,10 @@ class RequirementBotConnector(BaseTool):
     description: str = "要件定義に関する質問や、ドキュメント作成の依頼は、必ずこのツールを使用してください。引数'query'には、ユーザーの依頼文(文字列)をそのまま渡してください。"
     args_schema: type[BaseModel] = QueryInput
 
-    # 【現在のダミー実装】
+    # openai_test 子エージェントに処理を委譲する
     def _run(self, query: str) -> str:
         print(f"[Connector] 要件定義ボットに接続中... 入力: {query}")
-        return f"<RESULT>【要件定義エージェントからの回答】: 「{query}」についての要件定義ドラフトを作成しました。（接続テスト成功）</RESULT>"
-
+        return run_openai_test(query)
 
 # --- 脱線検知エージェント (将来の想定) ---
 class DeviationCheckConnector(BaseTool):

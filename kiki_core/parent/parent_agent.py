@@ -51,7 +51,7 @@ def run_kiki_orchestrator(user_input: str):
     )
 
     task = Task(
-        description=f"""
+        description="""
         ユーザー入力: 「{user_input}」
 
         【最重要指令】
@@ -64,9 +64,17 @@ def run_kiki_orchestrator(user_input: str):
         2. ツールから返ってきたテキスト（Tool Output）をそのまま取得する。
         3. そのテキストが「作成しました」という短い報告であっても、絶対に肉付けしてはいけない。
         4. ツールが出力した文字列のみを返すこと。
-        """,
+        
+        【終了条件】
+        ツール実行後は、以下の JSON 形式でただちに終了せよ。
+        {{
+            "result_text": "ツールの出力をそのまま返す"
+        }}
+        """.format(user_input=user_input),
+        
         expected_output="ツールから返却された文字列そのもの（1文字も変更禁止）",
-        agent=manager
+        agent=manager,
+        output_model=ExactOutput,
     )
 
     crew = Crew(
