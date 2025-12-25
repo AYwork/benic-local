@@ -3,7 +3,7 @@ info:
   title: kiki API
   description: CrewAI (Parent) on Azure App Service
   version: 0.1.0
-host: kiki-parent-dev-app-dhdnd8aad5c8e5fu.japanwest-01.azurewebsites.net
+host: api.com
 basePath: /
 schemes:
   - https
@@ -29,6 +29,8 @@ paths:
         - application/json
       produces:
         - application/json
+      security:
+        - api_key: []
       parameters:
         - in: body
           name: body
@@ -83,6 +85,11 @@ definitions:
         type: string
 parameters: {}
 responses: {}
-securityDefinitions: {}
-security: []
 tags: []
+securityDefinitions:
+  api_key:
+    type: apiKey
+    in: header
+    name: X-API-KEY
+security:
+  - api_key: []
