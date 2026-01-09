@@ -10,7 +10,7 @@ os.environ["AZURE_OPENAI_API_KEY"] = os.getenv("AZURE_OPENAI_API_KEY")
 from crewai import LLM, Agent, Crew, Process, Task
 from pydantic import BaseModel, Field
 
-from .children_connectors import (
+from kiki_core.parent.children_connectors import (
     CostEstimationConnector,
     DeviationCheckConnector,
     RequirementBotConnector

@@ -9,7 +9,7 @@ from fastapi import FastAPI, HTTPException, Security, Depends
 from fastapi.security.api_key import APIKeyHeader
 from pydantic import BaseModel
 
-from parent.parent_agent import run_kiki_orchestrator
+from kiki_core.parent.parent_agent import run_kiki_orchestrator
 
 app = FastAPI(
     title="kiki API",
